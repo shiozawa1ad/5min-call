@@ -1,0 +1,13 @@
+{
+  "name": "5min-call",
+  "version": "1.0.0",
+  "description": "5分間限定マッチング通話アプリ",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.7.2"
+  }
+}
