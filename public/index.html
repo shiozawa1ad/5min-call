@@ -2,7 +2,6 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-<link rel="manifest" href="/manifest.json">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>5分間通話</title>
   <style>
@@ -171,6 +170,7 @@
   <div id="view-idle" class="view active">
     <div class="app-title">5分間通話</div>
     <div class="app-sub">見知らぬ誰かと、5分だけ話す</div>
+    <div id="waiting-count-display" style="font-size:13px; color:rgba(110,231,160,0.8); background:rgba(110,231,160,0.08); border:0.5px solid rgba(110,231,160,0.25); border-radius:999px; padding:6px 18px;">● 待機中の人数を取得中…</div>
     <button class="btn-start" id="btn-start">
       <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none">
         <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.8 19.8 0 0 1 1.61 3.4 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72 12.8 12.8 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.29 6.29l1.42-1.42a2 2 0 0 1 2.11-.45 12.8 12.8 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
@@ -375,6 +375,17 @@
 
   // ===== 相手が切断 =====
   socket.on("partner-left", () => endCall("partner-left"));
+
+  // ===== 待機人数の更新 =====
+  socket.on("waiting-count", ({ count }) => {
+    const el = document.getElementById("waiting-count-display");
+    if (!el) return;
+    if (count === 0) {
+      el.textContent = "● 今すぐつながれます！";
+    } else {
+      el.textContent = `● 待機中: ${count}人`;
+    }
+  });
 
   // ===== 通話終了処理 =====
   function endCall(reason) {
