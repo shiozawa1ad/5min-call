@@ -1,6 +1,7 @@
 {
   "name": "5分間通話",
   "short_name": "5分通話",
+  "description": "見知らぬ誰かと5分間だけ話せる、匿名音声通話アプリ。",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0f0f1a",
